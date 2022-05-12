@@ -1,32 +1,18 @@
 package com.hyuuny.advanced.app.v1;
 
-import com.hyuuny.advanced.trace.TraceStatus;
-import com.hyuuny.advanced.trace.hellotrace.HelloTraceV1;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-@RequiredArgsConstructor
-@RestController
-public class OrderControllerV1 {
-
-  private final OrderServiceV1 orderService;
-  private final HelloTraceV1 trace;
+@ResponseBody
+@RequestMapping // 스프링 MVC는 @Controller 또는 @RequestMapping이 있어야 스프링 컨트롤러로 인식
+public interface OrderControllerV1 {
 
   @GetMapping("/v1/request")
-  public String request(String itemId) {
+  String request(@RequestParam("itemId") String itemId);
 
-    TraceStatus status = null;
-    try {
-      status = trace.begin("OrderController.request()");
-      orderService.orderItem(itemId);
-      trace.end(status);
-      return "ok";
-    } catch (Exception e) {
-      trace.exception(status, e);
-      throw e;
-    }
-
-  }
+  @GetMapping("/v1/no-log")
+  String noLog();
 
 }

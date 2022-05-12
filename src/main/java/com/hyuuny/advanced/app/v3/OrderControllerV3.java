@@ -1,7 +1,5 @@
 package com.hyuuny.advanced.app.v3;
 
-import com.hyuuny.advanced.trace.TraceStatus;
-import com.hyuuny.advanced.trace.logtrace.LogTrace;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,22 +9,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderControllerV3 {
 
   private final OrderServiceV3 orderService;
-  private final LogTrace trace;
 
   @GetMapping("/v3/request")
   public String request(String itemId) {
+    orderService.orderItem(itemId);
+    return "ok";
+  }
 
-    TraceStatus status = null;
-    try {
-      status = trace.begin("OrderController.request()");
-      orderService.orderItem(itemId);
-      trace.end(status);
-      return "ok";
-    } catch (Exception e) {
-      trace.exception(status, e);
-      throw e;
-    }
-
+  @GetMapping("/v3/no-log")
+  public String noLog() {
+    return "no";
   }
 
 }
