@@ -1,6 +1,6 @@
 package com.hyuuny.advanced;
 
-import com.hyuuny.advanced.config.v3_proxyfactory.ProxyFactoryConfigV2;
+import com.hyuuny.advanced.config.v5_autoproxy.AutoProxyConfig;
 import com.hyuuny.advanced.trace.logtrace.LogTrace;
 import com.hyuuny.advanced.trace.logtrace.ThreadLocalLogTrace;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +14,9 @@ import org.springframework.context.annotation.Import;
 //@Import({DynamicProxyBasicConfig.class})
 //@Import({DynamicProxyFilterConfig.class})
 //@Import({ProxyFactoryConfigV1.class})
-@Import({ProxyFactoryConfigV2.class})
+//@Import({ProxyFactoryConfigV2.class})
+//@Import({BeanPostProcessorConfig.class})
+@Import({AutoProxyConfig.class})
 @SpringBootApplication(scanBasePackages = "com.hyuuny.advanced.app")
 public class AdvancedApplication {
 
